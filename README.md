@@ -22,4 +22,5 @@ https://www.youtube.com/watch?v=kLcYipeEYDA
     3. Intermediate
     4. Saved
     5. the .sln file
+* Hit yes when it asks to rebuild
 * Regenerate Visual Studio Code
