@@ -19,10 +19,15 @@ app.get('/', (req, res) => {
 
 wss.on("connection", (socket) => {
     console.log("A user has connected!");
+
     socket.on("message", (message) => {
         const messageEvent = JSON.parse(message.toString()); // Get the UTF-8 buffered data, turn to string, then turn to JS object with event and data attributes
         console.log(messageEvent);
-    })
+    });
+
+    socket.on('close', () => {
+        console.log('Client disconnected');
+    });
 })
 
 server.listen(port, () => {
