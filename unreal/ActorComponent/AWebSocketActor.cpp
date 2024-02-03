@@ -61,3 +61,13 @@ void AAWebSocketActor::Tick(float DeltaTime)
     }
     SetActorLocation(FVector(startingLocation.X + offset, startingLocation.Y, startingLocation.Z));
 }
+
+void AAWebSocketActor::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+    Super::EndPlay(EndPlayReason);
+
+    if (Socket->IsConnected())
+    {
+        Socket->Close();
+    }
+}
