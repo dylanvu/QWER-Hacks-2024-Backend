@@ -1,14 +1,17 @@
 import express from "express";
 import http from "http";
-import { WebSocketServer } from "ws";
+import { WebSocketServer, WebSocket } from "ws";
 import cors from "cors";
+import { createUUID } from "./util/util";
 
 const app = express();
 const port = 3001;
 app.use(cors());
 app.use(express.json());
 
-// create the
+// create the room system
+let clientList: Record<string, WebSocket> = {}
+
 const server = http.createServer(app);
 
 const wss = new WebSocketServer({ server: server });
@@ -20,6 +23,12 @@ app.get('/', (req, res) => {
 wss.on("connection", (socket) => {
     console.log("A user has connected!");
 
+    // create a UUID, and add to clientList
+    const uuid = createUUID();
+    clientList[uuid] = socket;
+
+    console.log(Object.keys(clientList));
+
     socket.on("message", (message) => {
         const messageEvent = JSON.parse(message.toString()); // Get the UTF-8 buffered data, turn to string, then turn to JS object with event and data attributes
         console.log(messageEvent);
@@ -27,6 +36,9 @@ wss.on("connection", (socket) => {
 
     socket.on('close', () => {
         console.log('Client disconnected');
+        // remove client from the room
+        delete clientList[uuid];
+        console.log(Object.keys(clientList));
     });
 })
 
