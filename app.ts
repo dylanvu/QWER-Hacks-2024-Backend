@@ -32,6 +32,9 @@ wss.on("connection", (socket) => {
     socket.on("message", (message) => {
         const messageEvent = JSON.parse(message.toString()); // Get the UTF-8 buffered data, turn to string, then turn to JS object with event and data attributes
         console.log(messageEvent);
+        wss.clients.forEach((client) => {
+            client.send(JSON.stringify(messageEvent));
+        });
     });
 
     socket.on('close', () => {

@@ -73,7 +73,7 @@ void UTP_WeaponComponent::AttachWeapon(AShooterSocketTestCharacter *TargetCharac
     }
 
     // Attach the weapon to the First Person Character
-    FAttachmentTransformRules AttachmentRules(EAttachmentRule::SnapToTarget, true);
+    FAttachmentTransformRules AttachmentRules(EAttachmentRule::KeepRelative, true);
     AttachToComponent(Character->GetMesh1P(), AttachmentRules, FName(TEXT("GripPoint")));
 
     // switch bHasRifle so the animation blueprint can switch to another animation set
@@ -113,6 +113,9 @@ void UTP_WeaponComponent::BeginPlay()
     Socket->OnConnectionError().AddLambda([](const FString &Error)
                                           { GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, Error); });
 
+    Socket->OnMessage().AddLambda([](const FString &MessageString)
+                                  { GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, MessageString); });
+
     Socket->Connect();
 
     startingLocation = GetComponentLocation();
@@ -147,5 +150,5 @@ void UTP_WeaponComponent::TickComponent(float DeltaTime, enum ELevelTick TickTyp
     FVector location = GetComponentLocation();
     // Convert the FVector to a FString for display
     FString LocationString = FString::Printf(TEXT("Gun Location: X=%.2f, Y=%.2f, Z=%.2f"), location.X, location.Y, location.Z);
-    GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, LocationString);
+    // GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, LocationString);
 }

@@ -16,7 +16,7 @@
 This is the weird cannot merge actions issue.
 
 https://www.youtube.com/watch?v=kLcYipeEYDA
-* Delete the following files:
+* Delete the following folders/files:
     1. .vs
     2. Binaries
     3. Intermediate
