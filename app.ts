@@ -30,8 +30,17 @@ wss.on("connection", (socket) => {
     console.log(Object.keys(clientList));
 
     socket.on("message", (message) => {
-        const messageEvent = JSON.parse(message.toString()); // Get the UTF-8 buffered data, turn to string, then turn to JS object with event and data attributes
-        console.log(messageEvent);
+        const messageString = message.toString();
+        // console.log(messageString);
+        let messageEvent = JSON.parse(messageString);
+        // try {
+        //     messageEvent = JSON.parse(message.toString()); // Get the UTF-8 buffered data, turn to string, then turn to JS object with event and data attributes
+        // } catch (e) {
+        //     console.error(e);
+        // }
+        if (messageEvent.shoot) {
+            console.log(messageEvent);
+        }
         wss.clients.forEach((client) => {
             client.send(JSON.stringify(messageEvent));
         });
