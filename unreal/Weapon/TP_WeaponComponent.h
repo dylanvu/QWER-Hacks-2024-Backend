@@ -53,8 +53,8 @@ public:
     // override tick
     virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 
-    int frameEven = 0;
-    bool flip = false;
+    // int frameEven = 0;
+    // bool flip = false;
 
     FVector startingLocation;
 
