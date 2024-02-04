@@ -116,7 +116,7 @@ void UTP_WeaponComponent::BeginPlay()
 
     Socket->OnMessage().AddLambda([this](const FString &MessageString)
                                   {
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, MessageString); 
+		// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, MessageString); 
 		
 		// Initialize a TSharedPtr to hold the output JSON object
 		TSharedPtr<FJsonObject> JsonObject = MakeShareable(new FJsonObject());
@@ -145,8 +145,6 @@ void UTP_WeaponComponent::BeginPlay()
 		} });
 
     Socket->Connect();
-
-    startingLocation = GetComponentLocation();
 }
 
 void UTP_WeaponComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
