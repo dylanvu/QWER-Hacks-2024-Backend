@@ -50,14 +50,6 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Weapon")
     void Fire();
 
-    // override tick
-    virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
-
-    // int frameEven = 0;
-    // bool flip = false;
-
-    FVector startingLocation;
-
     TSharedPtr<IWebSocket> Socket;
 
 protected:
